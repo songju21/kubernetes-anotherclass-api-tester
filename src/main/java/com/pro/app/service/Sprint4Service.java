@@ -29,7 +29,7 @@ public class Sprint4Service {
 
         log.info("Application Logs for Trace : A Logic is progressing");
         log.info("Application Logs for Trace : A Logic is done");
-        MDC.clear();
+
 
         // HTTP 헤더에 trace_id 포함
         HttpHeaders headers = new HttpHeaders();
@@ -47,7 +47,7 @@ public class Sprint4Service {
         );
 
         log.info("Application Logs for Trace - A and B Logic is completed");
-
+        MDC.clear();
 
     }
 
