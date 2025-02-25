@@ -14,12 +14,8 @@ import org.springframework.http.ResponseEntity;
 
 @Service
 public class Sprint4Service {
-    private final RestTemplate restTemplate;
 
-    public Sprint4Service(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
-
+    private final RestTemplate restTemplate = new RestTemplate();
     private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     public void firstRequest(String applicationCode, String serviceName, String userId) {
@@ -29,7 +25,8 @@ public class Sprint4Service {
         MDC.put("trace_id", traceId);
         MDC.put("application_code", applicationCode);
         MDC.put("user_id", userId);
-        log.info("Processing user request");
+        log.info("Application Logs for Trace : A Logic is progressing");
+        log.info("Application Logs for Trace : A Logic is done");
         MDC.clear();
 
         // HTTP 헤더에 trace_id 포함
@@ -39,12 +36,15 @@ public class Sprint4Service {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
+        log.info("Application Logs for Trace : Call Other Service for B Logic");
         ResponseEntity<String> response = restTemplate.exchange(
                 "http://"+ serviceName+"/second_log",
                 HttpMethod.GET,
                 requestEntity,
                 String.class
         );
+
+        log.info("Application Logs for Trace - A and B Logic is completed");
 
 
     }
@@ -53,6 +53,9 @@ public class Sprint4Service {
         MDC.put("trace_id", traceId);
         MDC.put("application_code", applicationCode);
         MDC.put("user_id", userId);
+
+        log.info("Application Logs for Trace : B Logic is progressing");
+        log.info("Application Logs for Trace : B Logic is done");
 
         log.info("Processing user request");
         MDC.clear();
