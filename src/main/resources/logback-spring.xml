@@ -1,16 +1,9 @@
 <configuration>
-    <!-- 로그 패턴에 MDC 필드 추가 -->
-    <property name="LOG_PATTERN">
-        {"timestamp":"%d{yyyy-MM-dd HH:mm:ss.SSS}", "level":"%p", "thread":"%t",
-        "logger":"%c{1}", "message":"%m", "trace_id":"%X{trace_id}",
-        "application_code":"%X{application_code}", "user_id":"%X{user_id}"}
-    </property>
-
     <!-- 콘솔에 JSON 형식으로 로그 출력 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <customFields>{"service": "my-service"}</customFields>
-            <pattern>${LOG_PATTERN}</pattern>
+            <includeMdc>true</includeMdc>
         </encoder>
     </appender>
 
