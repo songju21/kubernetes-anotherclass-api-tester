@@ -21,11 +21,7 @@ public class Sprint4Controller {
     @Autowired
     private FileUtils fileUtils;
 
-    @Value(value = "${application.code}")
-    private String applicationCode;
 
-    @Value(value = "${downward.env.pod-name}")
-    private String downwardApiEnvPodName;
 
     public Sprint4Controller() {
     }
@@ -33,19 +29,19 @@ public class Sprint4Controller {
     @GetMapping("/first_log/to/{serviceName}")
     @ResponseBody
     public ResponseEntity<Object> firstLog(@PathVariable String serviceName,
-            @RequestHeader(value = "X-User-Id", required = false, defaultValue = "anonymous") String userId)  {
+            @RequestHeader(value = "X-User-Id", required = false) String userId)  {
 
-        sprint4Service.firstRequest(applicationCode, downwardApiEnvPodName, userId, serviceName);
+        sprint4Service.firstRequest(userId, serviceName);
         return ResponseEntity.ok("ok");
     }
 
 
     @GetMapping("/second_log")
     @ResponseBody
-    public ResponseEntity<Object> secondLog(@RequestHeader(value = "X-User-Id", required = false, defaultValue = "anonymous") String userId,
+    public ResponseEntity<Object> secondLog(@RequestHeader(value = "X-User-Id", required = false) String userId,
                                             @RequestHeader(value = "X-Trace-Id") String traceId) {
 
-        sprint4Service.secondRequest(applicationCode, downwardApiEnvPodName, userId, traceId);
+        sprint4Service.secondRequest(userId, traceId);
         return ResponseEntity.ok("ok");
     }
 

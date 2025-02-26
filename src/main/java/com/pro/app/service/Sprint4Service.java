@@ -18,15 +18,12 @@ public class Sprint4Service {
     private final RestTemplate restTemplate = new RestTemplate();
     private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
-    public void firstRequest(String applicationCode, String downwardApiEnvPodName, String userId, String serviceName) {
+    public void firstRequest(String userId, String serviceName) {
 
         // trace_id 생성
         String traceId = UUID.randomUUID().toString();
         MDC.put("trace_id", traceId);
-        MDC.put("application_code", applicationCode);
         MDC.put("user_id", userId);
-        MDC.put("pod_name", downwardApiEnvPodName);
-
         log.info("Application Logs for Trace : A Logic is progressing");
         log.info("Application Logs for Trace : A Logic is done");
 
@@ -51,11 +48,9 @@ public class Sprint4Service {
 
     }
 
-    public void secondRequest(String applicationCode, String downwardApiEnvPodName, String userId, String traceId) {
+    public void secondRequest(String userId, String traceId) {
         MDC.put("trace_id", traceId);
-        MDC.put("application_code", applicationCode);
         MDC.put("user_id", userId);
-        MDC.put("pod_name", downwardApiEnvPodName);
 
         log.info("Application Logs for Trace : B Logic is progressing");
         log.info("Application Logs for Trace : B Logic is done");

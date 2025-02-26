@@ -3,10 +3,14 @@ package com.pro.app.component;
 import com.pro.app.service.DefaultService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class Startup implements
@@ -14,10 +18,26 @@ public class Startup implements
 
     private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
+    @Value(value = "${application.code}")
+    private String applicationCode;
+
+    @Value(value = "${downward.env.pod-name}")
+    private String downwardApiEnvPodName;
+
     @Autowired
     private DefaultService defaultService;
 
     @Override public void onApplicationEvent(ContextRefreshedEvent event) {
+
+        System.out.println("applicationCode = " + applicationCode); // ✅ 값 확인
+        System.out.println("downwardApiEnvPodName = " + downwardApiEnvPodName); // ✅ 값 확인
+
+        MDC.put("trace_id", "none");
+        MDC.put("application_code", applicationCode);
+        MDC.put("pod_name", downwardApiEnvPodName);
+        MDC.put("user_id", "anonymous");
+
+
         try {
             log.info("[System] App is initializing");
             Thread.sleep(1*1000);
