@@ -1,13 +1,11 @@
 <configuration>
-    <!-- 콘솔에 JSON 형식으로 로그 출력 -->
+    <!-- 콘솔에 출력 (텍스트 로그) -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <customFields>{"service": "my-service"}</customFields>
-            <includeMdc>true</includeMdc>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - trace_id=%X{trace_id} pod_name=%X{pod_name} user_id=%X{user_id} application_code=%X{application_code} message=%msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- 로그 레벨 설정 -->
     <root level="info">
         <appender-ref ref="CONSOLE"/>
     </root>
