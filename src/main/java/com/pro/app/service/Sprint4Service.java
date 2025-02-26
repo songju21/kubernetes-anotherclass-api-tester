@@ -37,24 +37,18 @@ public class Sprint4Service {
 
         log.info("Application Logs for Trace : Call Other Service for B Logic");
         ResponseEntity<String> response = restTemplate.exchange(
-                "http://"+ serviceName+"/second_log",
+                "http://"+ serviceName+":8080/second_log",
                 HttpMethod.GET,
                 requestEntity,
                 String.class
         );
 
         log.info("Application Logs for Trace - A and B Logic is completed");
-        MDC.clear();
-
     }
 
-    public void secondRequest(String userId, String traceId) {
-        MDC.put("trace_id", traceId);
-        MDC.put("user_id", userId);
-
+    public void secondRequest() {
         log.info("Application Logs for Trace : B Logic is progressing");
         log.info("Application Logs for Trace : B Logic is done");
-        MDC.clear();
     }
 }
 

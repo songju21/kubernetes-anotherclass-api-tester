@@ -38,10 +38,8 @@ public class Sprint4Controller {
 
     @GetMapping("/second_log")
     @ResponseBody
-    public ResponseEntity<Object> secondLog(@RequestHeader(value = "X-User-Id", required = false) String userId,
-                                            @RequestHeader(value = "X-Trace-Id") String traceId) {
-
-        sprint4Service.secondRequest(userId, traceId);
+    public ResponseEntity<Object> secondLog() {
+        sprint4Service.secondRequest();
         return ResponseEntity.ok("ok");
     }
 

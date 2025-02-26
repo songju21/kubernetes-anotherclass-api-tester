@@ -29,9 +29,6 @@ public class Startup implements
 
     @Override public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        System.out.println("applicationCode = " + applicationCode); // ✅ 값 확인
-        System.out.println("downwardApiEnvPodName = " + downwardApiEnvPodName); // ✅ 값 확인
-
         MDC.put("trace_id", "none");
         MDC.put("application_code", applicationCode);
         MDC.put("pod_name", downwardApiEnvPodName);
