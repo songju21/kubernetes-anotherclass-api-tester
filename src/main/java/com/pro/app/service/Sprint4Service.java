@@ -56,8 +56,9 @@ public class Sprint4Service {
     }
 
     public void secondRequest(Integer count) {
-        log.info("Application Logs for Trace : B Logic is progressing " + count+1 + "/5");
-        log.info("Application Logs for Trace : B Logic is done " + count+1 + "/5");
+        count++;
+        log.info("Application Logs for Trace : B Logic is progressing " + count + "/5");
+        log.info("Application Logs for Trace : B Logic is done " + count + "/5");
     }
 }
 

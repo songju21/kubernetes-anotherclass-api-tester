@@ -32,13 +32,13 @@ class TraceFilter implements Filter {
 
 
         if (traceType == null || traceType.isEmpty()) {
-            traceType = "default";
+            traceType = "none";
         }
         if (traceId == null || traceId.isEmpty()) {
             traceId = "none";
         }
         if (userId == null || userId.isEmpty()) {
-            userId = "anonymous";
+            userId = "none";
         }
 
         MDC.put("trace_type", traceType);
