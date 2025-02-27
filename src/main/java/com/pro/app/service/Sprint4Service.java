@@ -21,34 +21,43 @@ public class Sprint4Service {
     public void firstRequest(String userId, String serviceName) {
 
         // trace_id 생성
+        String traceType = "request";
         String traceId = UUID.randomUUID().toString();
+
+        MDC.put("trace_type", traceType);
         MDC.put("trace_id", traceId);
         MDC.put("user_id", userId);
+
         log.info("Application Logs for Trace : A Logic is progressing");
         log.info("Application Logs for Trace : A Logic is done");
 
 
         // HTTP 헤더에 trace_id 포함
         HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Trace-Type", traceType);
         headers.set("X-Trace-Id", traceId);
         headers.set("X-User-Id", userId);
 
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
         log.info("Application Logs for Trace : Call Other Service for B Logic");
-        ResponseEntity<String> response = restTemplate.exchange(
-                "http://"+ serviceName+"/second_log",
-                HttpMethod.GET,
-                requestEntity,
-                String.class
-        );
+
+        for(int i=0 ; i<5 ; i++) {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    "http://"+ serviceName+"/second_log/"+i,
+                    HttpMethod.GET,
+                    requestEntity,
+                    String.class
+            );
+        }
+
 
         log.info("Application Logs for Trace - A and B Logic is completed");
     }
 
-    public void secondRequest() {
-        log.info("Application Logs for Trace : B Logic is progressing");
-        log.info("Application Logs for Trace : B Logic is done");
+    public void secondRequest(Integer count) {
+        log.info("Application Logs for Trace : B Logic is progressing " + count+1 + "/5");
+        log.info("Application Logs for Trace : B Logic is done " + count+1 + "/5");
     }
 }
 

@@ -18,23 +18,11 @@ public class Startup implements
 
     private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
-    @Value(value = "${application.code}")
-    private String applicationCode;
-
-    @Value(value = "${downward.env.pod-name}")
-    private String downwardApiEnvPodName;
 
     @Autowired
     private DefaultService defaultService;
 
     @Override public void onApplicationEvent(ContextRefreshedEvent event) {
-
-        MDC.put("trace_id", "none");
-        MDC.put("application_code", applicationCode);
-        MDC.put("pod_name", downwardApiEnvPodName);
-        MDC.put("user_id", "anonymous");
-
-
         try {
             log.info("[System] App is initializing");
             Thread.sleep(1*1000);

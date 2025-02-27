@@ -36,10 +36,10 @@ public class Sprint4Controller {
     }
 
 
-    @GetMapping("/second_log")
+    @GetMapping("/second_log/{count}")
     @ResponseBody
-    public ResponseEntity<Object> secondLog() {
-        sprint4Service.secondRequest();
+    public ResponseEntity<Object> secondLog(@PathVariable Integer count) {
+        sprint4Service.secondRequest(count);
         return ResponseEntity.ok("ok");
     }
 

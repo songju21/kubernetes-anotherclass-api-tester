@@ -20,20 +20,20 @@ import java.util.UUID;
 @WebFilter("/*")
 class TraceFilter implements Filter {
 
-    @Value(value = "${application.code}")
-    private String applicationCode;
-
-    @Value(value = "${downward.env.pod-name}")
-    private String downwardApiEnvPodName;
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest httpRequest = (HttpServletRequest) request; // ✅ HttpServletRequest로 캐스팅
-        String userId = httpRequest.getHeader("X-User-Id");
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
         String traceId = httpRequest.getHeader("X-Trace-Id");
+        String traceType = httpRequest.getHeader("X-Trace-Type");
+        String userId = httpRequest.getHeader("X-User-Id");
 
+
+
+        if (traceType == null || traceType.isEmpty()) {
+            traceType = "default";
+        }
         if (traceId == null || traceId.isEmpty()) {
             traceId = "none";
         }
@@ -41,10 +41,9 @@ class TraceFilter implements Filter {
             userId = "anonymous";
         }
 
+        MDC.put("trace_type", traceType);
         MDC.put("trace_id", traceId);
         MDC.put("user_id", userId);
-        MDC.put("application_code", applicationCode);
-        MDC.put("pod_name", downwardApiEnvPodName);
 
         chain.doFilter(request, response); // 필터 체인 실행
 
