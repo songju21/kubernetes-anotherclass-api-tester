@@ -37,7 +37,7 @@ public class Sprint4Service {
 
         log.info("Application Logs for Trace : Call Other Service for B Logic");
         ResponseEntity<String> response = restTemplate.exchange(
-                "http://"+ serviceName+":8080/second_log",
+                "http://"+ serviceName+"/second_log",
                 HttpMethod.GET,
                 requestEntity,
                 String.class

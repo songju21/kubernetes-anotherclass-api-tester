@@ -42,9 +42,9 @@ class TraceFilter implements Filter {
         }
 
         MDC.put("trace_id", traceId);
+        MDC.put("user_id", userId);
         MDC.put("application_code", applicationCode);
         MDC.put("pod_name", downwardApiEnvPodName);
-        MDC.put("user_id", userId);
 
         chain.doFilter(request, response); // 필터 체인 실행
 
