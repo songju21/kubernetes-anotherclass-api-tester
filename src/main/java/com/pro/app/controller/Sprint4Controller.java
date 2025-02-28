@@ -26,6 +26,35 @@ public class Sprint4Controller {
     public Sprint4Controller() {
     }
 
+    @GetMapping("/user_info")
+    @ResponseBody
+    public ResponseEntity<Object> userInfo()  {
+
+        String returnString = "{"
+                + "\"name\": \"일프로\","
+                + "\"ssn\": \"831006-1234567\","
+                + "\"userId\": \"1pro\","
+                + "\"email\": \"k8s.1pro@gmail.com\","
+                + "\"phone\": \"010-1234-5678\","
+                + "\"role\": \"admin\","
+                + "\"department\": \"IT\","
+                + "\"position\": \"DevOps Engineer\","
+                + "\"address\": {"
+                + "\"city\": \"Incheon\","
+                + "\"district\": \"Namdonggu\","
+                + "},"
+                + "\"loginHistory\": ["
+                + "{ \"timestamp\": \"2024-02-25T10:15:30\", \"ip\": \"192.168.0.1\", \"device\": \"Windows PC\" },"
+                + "{ \"timestamp\": \"2024-02-24T22:30:45\", \"ip\": \"192.168.0.5\", \"device\": \"iPhone 13\" }"
+                + "],"
+                + "\"permissions\": [\"READ\", \"WRITE\", \"DELETE\"]"
+                + "}";
+        log.info(returnString);
+        return ResponseEntity.ok(returnString);
+    }
+
+
+
     @GetMapping("/first_log/to/{serviceName}")
     @ResponseBody
     public ResponseEntity<Object> firstLog(@PathVariable String serviceName,
