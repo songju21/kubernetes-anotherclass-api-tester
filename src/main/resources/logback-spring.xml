@@ -2,7 +2,7 @@
     <!-- 콘솔에 출력 (텍스트 로그) -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - trace_type=%X{trace_type} trace_id=%X{trace_id} user_id=%X{user_id} message=%msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - trace_type=%X{trace_type} trace_id=%X{trace_id} user_id=%X{user_id} %msg%n</pattern>
         </encoder>
     </appender>
 
