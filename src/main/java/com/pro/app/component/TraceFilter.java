@@ -26,14 +26,8 @@ class TraceFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String traceId = httpRequest.getHeader("X-Trace-Id");
-        String traceType = httpRequest.getHeader("X-Trace-Type");
         String userId = httpRequest.getHeader("X-User-Id");
 
-
-
-        if (traceType == null || traceType.isEmpty()) {
-            traceType = "none";
-        }
         if (traceId == null || traceId.isEmpty()) {
             traceId = "none";
         }
@@ -41,7 +35,6 @@ class TraceFilter implements Filter {
             userId = "none";
         }
 
-        MDC.put("trace_type", traceType);
         MDC.put("trace_id", traceId);
         MDC.put("user_id", userId);
 

@@ -24,7 +24,6 @@ public class Sprint4Service {
         String traceType = "request";
         String traceId = UUID.randomUUID().toString();
 
-        MDC.put("trace_type", traceType);
         MDC.put("trace_id", traceId);
         MDC.put("user_id", userId);
 
@@ -32,7 +31,6 @@ public class Sprint4Service {
 
         // HTTP 헤더에 trace_id 포함
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Trace-Type", traceType);
         headers.set("X-Trace-Id", traceId);
         headers.set("X-User-Id", userId);
 
@@ -58,5 +56,3 @@ public class Sprint4Service {
         log.info("Application Logs for Trace : B Logic is progressing " + count + "/5");
     }
 }
-
-
