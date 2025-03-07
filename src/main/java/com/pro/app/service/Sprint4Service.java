@@ -27,17 +27,15 @@ public class Sprint4Service {
         MDC.put("trace_id", traceId);
         MDC.put("user_id", userId);
 
-        log.info("A Logic is started");
+        log.info("Logic is started");
 
-        // HTTP 헤더에 trace_id 포함
+        // HTTP 헤더에 trace_id, user_id 포함
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Trace-Id", traceId);
         headers.set("X-User-Id", userId);
-
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
-        log.info("A Logic is sent API to Other Service");
-
+        // Cust Service로 Reqeust 전송
         for(int i=0 ; i<5 ; i++) {
             ResponseEntity<String> response = restTemplate.exchange(
                     "http://"+ serviceName+"/second_log/"+i,
@@ -48,11 +46,11 @@ public class Sprint4Service {
         }
 
 
-        log.info("A Logic is completed");
+        log.info("Logic is completed");
     }
 
     public void secondRequest(Integer count) {
         count++;
-        log.info("Application Logs for Trace : B Logic is progressing " + count + "/5");
+        log.info("Logic is progressing " + count + "/5");
     }
 }

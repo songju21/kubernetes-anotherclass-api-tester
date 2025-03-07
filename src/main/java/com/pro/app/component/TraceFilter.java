@@ -38,7 +38,7 @@ class TraceFilter implements Filter {
         MDC.put("trace_id", traceId);
         MDC.put("user_id", userId);
 
-        chain.doFilter(request, response); // 필터 체인 실행
+        chain.doFilter(request, response);
 
     }
 }
